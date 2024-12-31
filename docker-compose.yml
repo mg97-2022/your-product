@@ -1,0 +1,44 @@
+version: "3"
+services:
+  your-product:
+    container_name: "your-product"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/social_media
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 136910@Mg
+    depends_on:
+      postgres:
+        # Ensures the postgres service passes its health check before starting your-product.
+        condition: service_healthy
+
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    # Ensures the container restarts automatically if it crashes.
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 136910@Mg
+      POSTGRES_DB: social_media
+    ports:
+      - "5432:5432"
+    # Defines a health check to ensure PostgreSQL is ready
+    healthcheck:
+      # Runs the pg_isready command to check if PostgreSQL is accepting connections.
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      # Runs the test every 10 seconds.
+      interval: 10s
+      # Each test times out after 5 seconds if no response is received.
+      timeout: 5s
+      # The container is marked unhealthy after 5 failed attempts.
+      retries: 5
+
+volumes:
+  postgres_data:

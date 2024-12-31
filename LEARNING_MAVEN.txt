@@ -1,0 +1,23 @@
+<===== INFO =====>
+1- When inheriting from parent pom, no need to define the groupId and version in child pom
+2- When I pull down a new dependency from remote repository, a copy of it is cached in my local repository in (c->Users->.m2->repository->...)
+3- Transitive dependencies are the dependencies of pulled down dependency
+3- dependency scopes are (compile [default], test, runtime, provided) and there are more
+
+<===== COMMANDS =====>
+1- mvn package : used to execute package phase (and compile also as it's before package)
+2- mvn -X compile : used to execute compile phase and generate compiled code (-X flag is optional and used for debug)
+3- mvn site : used to generate a site report for the project
+4- mvn help:effective-pom :- used to show the current directory full pom.xml content (with inherited configurations)
+5- mvn install :- used to install pom.xml to local repository (should run it in the directory that contains the pom.xml file)
+6- mvn -PprofileName package : -P (capital p) is used to define a profile
+7- mvn spring-boot:run
+8- mvn dependency:copy-dependencies : used to pull down dependencies from remote repository to local repository
+9- mvn test :- used to run test phase
+10- mvn clean :- clean plugin used to clean target folder (it has only one goal [clean])
+11- mvn jar:jar :- used to create jar file for my project
+
+
+<===== SEARCH FOR =====>
+1- what is a classpath mean? (shows when compiling files)
+

@@ -1,0 +1,81 @@
+###### /******************** SENDING ERROR MESSAGES IN RESPONSE ********************/
+#  server.error.include-message=always
+##### /******************** LOGGING ********************/
+#logging:
+#  config: classpath:logback-dev.xml
+#  level:
+#    ##### /----- START LOGGING FROM INFO LEVEL -----/
+#    root: INFO
+#    ##### /----- LOGGING SECURITY FILTERS IN CONSOLE -----/
+#    org.springframework.security: trace
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  ##### /----- DATABASE CONNECTION -----/
+  datasource:
+    url: jdbc:postgresql://localhost:5000/social_media
+    username: postgres
+    password: 136910@Mg
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+#      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+  ##### /----- EXECUTES CODE IN data.sql AFTER SCHEMA CREATION -----/
+  sql:
+    init:
+      mode: always
+
+  mail:
+    host: localhost
+    port: 1025
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          ##### /-----
+          # Purpose: This property enables authentication when connecting to the SMTP server.
+          # Usage: SMTP servers often require authentication to prevent unauthorized use.
+          # Setting this property to true tells the JavaMailSender to use the credentials provided
+          # (spring.mail.username and spring.mail.password) to authenticate with the SMTP server.
+          # -----/
+          auth: true
+          ##### /-----
+          # Purpose: This property enables STARTTLS for secure communication.
+          # Usage: STARTTLS is a protocol command used to upgrade an existing insecure connection to a secure one.
+          # Setting this property to true tells the JavaMailSender to use STARTTLS if the SMTP server supports it,
+          # ensuring that the communication between your application and the SMTP server is encrypted.
+          # -----/
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+  ##### /----- MAKE LOGGING COLORFUL -----/
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  devtools:
+    livereload:
+      enabled: true
+
+##### /----- SENDER EMAIL -----/
+email:
+  sender: mg97@gmail.com
+
+##### /----- JWT VARIABLES -----/
+JWT:
+  secret: 5e1ff336e89089ebec6e882bb8bd3330c3360c6206db88b20c17c4e1a85ee52b
+  expirationMS: 3600000

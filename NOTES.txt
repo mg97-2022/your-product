@@ -1,0 +1,69 @@
+public class NEED_TO_LEARN {
+    /*
+    * <)=====(> LEARN:-
+    * <=================> [DONE] 1) LAMBDA EXPRESSIONS
+    * <=================> [DONE] 2) OPTIONALS (SEE THE METHODS IN IT)
+    * <=================> [DONE] 3) GENERICS
+    * <=================> [DONE] 4) FUNCTIONAL PROGRAMMING
+    * 5) COMBINATOR PATTERN
+    * <=================> [DONE] 6) Runnable keyword
+    *
+    *
+    * <)=====(> FROM PROBLEM SOLVING:-
+    * 1) Collections class in utils
+    * 2) stream() on list for integers
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * <)=====(> SEARCH FOR:-
+    * <=================> [DONE] 1) JDK, JRE AND JVM
+    *
+    * <)=====(> VALIDATION:-
+    * @NotNull: Ensures that the annotated element is not null.
+    * @NotEmpty: Ensures that the annotated string, collection, map, or array is not null or empty.
+    * @NotBlank: Ensures that the annotated string is not null and contains at least one non-whitespace character.
+    * @Size: Validates that the annotated element's size is within the specified boundaries (inclusive).
+    * -- Example:- @Size(min = 2, max = 14, message = "Name must be between 2 and 14 characters")
+    * @Min and @Max: Validates that the annotated element is greater than or equal to @Min and less than or equal to @Max.
+    * -- Example:- @Min(value = 18, message = "Age should not be less than 18")
+    * @Positive and @PositiveOrZero: Ensures that the annotated element is a positive number (or zero in the case of @PositiveOrZero).
+    * @Negative and @NegativeOrZero: Ensures that the annotated element is a negative number (or zero in the case of @NegativeOrZero).
+    * @Email: Validates that the annotated string is a valid email address.
+    * @Pattern: Validates that the annotated string matches the specified regular expression.
+    * -- Example:- @Pattern(regexp = "^[A-Za-z]*$", message = "Name must contain only letters")
+    * @Past and @PastOrPresent: Ensures that the annotated date is in the past (or present in the case of @PastOrPresent).
+    * @Future and @FutureOrPresent: Ensures that the annotated date is in the future (or present in the case of @FutureOrPresent).
+    * @Digits: Ensures that the annotated element is a number with an integer and fraction part within specified limits.
+    * -- Example:- @Digits(integer = 3, fraction = 2, message = "Number must be within 3 integer and 2 fraction digits")
+    * @DecimalMin and @DecimalMax: Validates that the annotated element is a number whose value must be greater than or equal to the specified @DecimalMin and less than or equal to the specified @DecimalMax.
+    * -- Example:- @DecimalMin(value = "1.00", message = "Price must be at least 1.00")
+    *
+    * <)=====(> SHORTCUTS:-
+    * 1) shift + alt + h => show method hierarchy
+    * 2) ctrl + h => replace in file
+    * 3) ctrl + shift + h => replace in files
+    * 4) ctrl + n => search in classes
+    * 5) shift + shift => search in all
+    * 6) ctrl + shift + f => search in all project
+    * 7) ctrl + o => override methods
+    * 8) ctrl + alt + m => used to (extract) the selected code into a separate method
+    *
+    * <)=====(> FUNCTIONAL PROGRAMMING:-
+    * 1) PREDICATE => FUNCTION THAT TAKES ONE ARGUMENT AND RETURNS TRUE OR FALSE (FILTER METHOD) [BI_PREDICATE TAKES TWO ARGUMENTS]
+    * 2) FUNCTION => FUNCTION THAT TAKES ONE ARGUMENT AND PERFORMS ACTION ON IT AND RETURNS THE MODIFIED ELEMENT
+    *  (MAP METHOD) [BI_FUNCTION TAKES TWO ARGUMENTS]
+    * 3) CONSUMER =>  FUNCTION THAT TAKES ONE ARGUMENT AND PERFORMS ACTION ON IT BUT DOESN'T RETURN ANYTHING (FOREACH METHOD)
+    * 4) SUPPLIER => FUNCTION THAT TAKES NO ARGUMENTS AND RETURNS VALUE [Supplier<String> s = () -> "hello world";]
+    *
+    *
+    * <)=====(> USE IN ANOTHER PROJECT:-
+    *
+    *
+    *
+    * */
+}

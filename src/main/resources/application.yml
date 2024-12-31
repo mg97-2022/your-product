@@ -1,0 +1,10 @@
+spring:
+###### /******************** PROJECT NAME ********************/
+  application:
+    name: your-product
+
+###### /******************** PROFILES (ENVIRONMENT) ********************/
+  config:
+    import: application_dev.yml,application_prod.yml
+  profiles:
+    active: dev
