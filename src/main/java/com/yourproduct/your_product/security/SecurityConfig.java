@@ -1,5 +1,6 @@
 package com.yourproduct.your_product.security;
 
+import com.yourproduct.your_product.enums.UserRoles;
 import com.yourproduct.your_product.service.UserService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,22 +32,28 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UserService userService;
+    private final JwtAuthFilter jwtAuthFilter;
+    private final AccessDeniedHandler AccessDeniedHandlerImpl;
+    private final AuthenticationEntryPoint AuthenticationEntryPointImpl;
 
     @Bean
     SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults()) // Enable CORS
             .authorizeHttpRequests((requests) -> requests.requestMatchers(HttpMethod.GET, "/files/**").permitAll()
                                                          .requestMatchers("/files/**").authenticated()
-                                                         .requestMatchers("/api/v*/auth/**").permitAll().anyRequest()
-                                                         .authenticated())
+                                                         .requestMatchers("/api/v*/auth/**").permitAll()
+                                                         .requestMatchers(HttpMethod.GET, "/api/v*/categories")
+                                                         .permitAll().requestMatchers("/api/v*/categories/**")
+                                                         .hasRole(UserRoles.ADMIN.name()).anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider());
-//                .exceptionHandling(
-//                    exceptionHandlingConfigurer -> exceptionHandlingConfigurer.authenticationEntryPoint(
-//                            AuthenticationEntryPointImpl).accessDeniedHandler(AccessDeniedHandlerImpl))
+            .authenticationProvider(authenticationProvider()).exceptionHandling(
+                    exceptionHandlingConfigurer -> exceptionHandlingConfigurer.authenticationEntryPoint(
+                            AuthenticationEntryPointImpl)
+//.accessDeniedHandler(AccessDeniedHandlerImpl)
+            )
 //            .addFilterBefore(globalExceptionFilter, UsernamePasswordAuthenticationFilter.class)
-//            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
