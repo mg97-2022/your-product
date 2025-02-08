@@ -5,12 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+#      args:
+#        - PROFILE=dev
     ports:
       - "8080:8080"
     environment:
+      ##### DB Environments
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/social_media
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 136910@Mg
+      ##### Dockerfile Environments
+      SPRING_PROFILES_ACTIVE: dev
     depends_on:
       postgres:
         # Ensures the postgres service passes its health check before starting your-product.

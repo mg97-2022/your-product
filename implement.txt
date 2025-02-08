@@ -1,1 +1,15 @@
+// ENHANCEMENTS
+1) FileUtil needs to handle exceptions better to return more descriptive messages and log the errors instead of just returning the error
+
+
+// FEATURES
 1) using OAuth (Google for example)
+2) notifications using firebase
+3) storage of images in firebase
+4) stripe payment
+5) try to build CI/CD pipeline
+
+// IMPLEMENT
+1) INTEGRATION TEST
+2) RUN DEVELOPMENT FROM DOCKER
+3) LOGGING HAS ERROR

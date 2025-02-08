@@ -4,7 +4,6 @@ import com.yourproduct.your_product.dto.LoginResponseDto;
 import com.yourproduct.your_product.dto.UserDto;
 import com.yourproduct.your_product.entity.User;
 import com.yourproduct.your_product.enums.UserTokenTypes;
-import com.yourproduct.your_product.exception.CustomException;
 import com.yourproduct.your_product.exception.InvalidDataException;
 import com.yourproduct.your_product.exception.NotAuthorizedException;
 import com.yourproduct.your_product.mapper.UserMapper;
@@ -14,7 +13,6 @@ import com.yourproduct.your_product.service.UserService;
 import com.yourproduct.your_product.utils.email.EmailService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
     public void signup(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         String otp = saveConfirmEmailOtp(user);
+        // save user in db
         // Send confirmation email
         sendConfirmationEmail(user.getEmail(), otp);
     }

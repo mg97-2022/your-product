@@ -8,3 +8,9 @@ spring:
     import: application_dev.yml,application_prod.yml
   profiles:
     active: dev
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB

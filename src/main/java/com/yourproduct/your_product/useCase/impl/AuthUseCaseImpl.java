@@ -34,7 +34,7 @@ public class AuthUseCaseImpl implements AuthUseCase {
 
     @Override
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
-        return authService.login(loginRequestDto.email(), loginRequestDto.password());
+        return authService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
     }
 
     @Override

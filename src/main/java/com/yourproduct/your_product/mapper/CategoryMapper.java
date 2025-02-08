@@ -12,7 +12,7 @@ import java.util.List;
 public interface CategoryMapper {
     CategoryDto toDto(Category category);
 
-    Category toEntity(Category category);
+    Category toEntity(CategoryDto category);
 
     @Mapping(target = "image", ignore = true)
     Category toEntityFromCategoryRequestDto(CategoryRequestDto categoryRequestDTO);

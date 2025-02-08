@@ -44,6 +44,12 @@ public class SecurityConfig {
                                                          .requestMatchers("/api/v*/auth/**").permitAll()
                                                          .requestMatchers(HttpMethod.GET, "/api/v*/categories")
                                                          .permitAll().requestMatchers("/api/v*/categories/**")
+                                                         .hasRole(UserRoles.ADMIN.name())
+                                                         .requestMatchers(HttpMethod.GET, "/api/v*/categories/**")
+                                                         .permitAll()
+                                                         .requestMatchers(HttpMethod.GET, "/api/v*/products")
+                                                         .permitAll()
+                                                         .requestMatchers("/api/v*/products/**")
                                                          .hasRole(UserRoles.ADMIN.name()).anyRequest().authenticated())
             .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

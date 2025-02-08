@@ -1,16 +1,17 @@
 package com.yourproduct.your_product.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Profile("dev")
 @ControllerAdvice
@@ -22,11 +23,31 @@ public class DevelopmentGlobalExceptionHandler {
     // For the response message, it will be an array of messages
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponseDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        List<String> errorMessages = new ArrayList<>();
+//        List<String> errorMessages = new ArrayList<>();
+        Map<String, String> errorMessages = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String errorMessage = error.getDefaultMessage();
-            errorMessages.add(errorMessage);
+            String errorKey = ((FieldError) error).getField();
+            errorMessages.put(errorKey, errorMessage);
+//            errorMessages.add(errorMessage);
         });
+
+        HttpStatus statusCode = HttpStatus.BAD_REQUEST;
+
+        ExceptionResponseDTO exceptionResponse =
+                ExceptionResponseDTO.builder().message(errorMessages).status(ExceptionStatus.FAIL.toString())
+                                    .error(statusCode.getReasonPhrase()).path(ex.getStackTrace()[0].toString())
+                                    .exception(ex.toString()).build();
+
+        return new ResponseEntity<>(exceptionResponse, statusCode);
+    }
+
+    // Handles validation errors messages for annotations such requestParams (@Validated)
+    // For the response message, it will be an array of messages
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ExceptionResponseDTO> handleConstraintViolationException(ConstraintViolationException ex) {
+        String[] messagesArray = ex.getMessage().split(", ");
+        List<String> errorMessages = new ArrayList<>(Arrays.asList(messagesArray));
 
         HttpStatus statusCode = HttpStatus.BAD_REQUEST;
 

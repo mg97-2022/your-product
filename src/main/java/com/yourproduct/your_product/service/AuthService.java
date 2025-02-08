@@ -1,6 +1,5 @@
 package com.yourproduct.your_product.service;
 
-import com.yourproduct.your_product.dto.LoginRequestDto;
 import com.yourproduct.your_product.dto.LoginResponseDto;
 import com.yourproduct.your_product.entity.User;
 

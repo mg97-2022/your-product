@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class CategoryRequestDto {
-    @NotBlank(message = "Category name is required", groups = {Create.class, Update.class})
+    @NotBlank(message = "Category name is required")
     @Size(min = 2, max = 100, message = "Category name should be between 2 and 100 characters",
             groups = {Create.class, Update.class})
     public String name;

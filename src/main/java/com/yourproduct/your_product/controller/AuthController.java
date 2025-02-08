@@ -22,14 +22,14 @@ public class AuthController {
 
     @PostMapping("/confirm-email")
     public ResponseEntity<Void> confirmEmail(@Valid @RequestBody ConfirmEmailRequestDto confirmEmailRequestDto) {
-        authUseCase.confirmEmail(confirmEmailRequestDto.confirmToken());
+        authUseCase.confirmEmail(confirmEmailRequestDto.getConfirmToken());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/resend-confirmation-email")
     public ResponseEntity<Void> resendConfirmationEmail(
             @Valid @RequestBody ResendConfirmationEmailRequestDto resendConfirmationEmailRequestDto) {
-        authUseCase.resendConfirmationEmail(resendConfirmationEmailRequestDto.email());
+        authUseCase.resendConfirmationEmail(resendConfirmationEmailRequestDto.getEmail());
         return ResponseEntity.ok().build();
     }
 
@@ -41,7 +41,7 @@ public class AuthController {
     @PostMapping("/forgot-password")
     public ResponseEntity<Void> forgotPassword(
             @Valid @RequestBody ForgotPasswordRequestDto forgotPasswordRequestDto) {
-        authUseCase.forgotPassword(forgotPasswordRequestDto.email());
+        authUseCase.forgotPassword(forgotPasswordRequestDto.getEmail());
         return ResponseEntity.ok().build();
     }
 

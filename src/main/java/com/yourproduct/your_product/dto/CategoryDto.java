@@ -1,11 +1,14 @@
 package com.yourproduct.your_product.dto;
 
+import com.yourproduct.your_product.interfaces.Create;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class CategoryDto {
-    private Integer id;
-    private String name;
-    private String image;
-    private CategoryDto parentCategory;
+    @NotNull(message = "Category id is required")
+    Integer id;
+    String name;
+    String image;
+    CategoryDto parentCategory;
 }

@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/v1/categories")
 @RequiredArgsConstructor
-@Validated
 public class CategoryController {
     private final CategoryUseCase categoryUseCase;
 
