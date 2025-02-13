@@ -7,10 +7,48 @@ spring:
   config:
     import: application_dev.yml,application_prod.yml
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE}
+
+##### /----- DATABASE CONNECTION -----/
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   servlet:
     multipart:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+
+  mail:
+    host: ${SPRING_EMAIL_HOST}
+    port: ${SPRING_EMAIL_PORT}
+    username: ${SPRING_EMAIL_USERNAME}
+    password: ${SPRING_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          ##### /-----
+          # Purpose: This property enables authentication when connecting to the SMTP server.
+          # Usage: SMTP servers often require authentication to prevent unauthorized use.
+          # Setting this property to true tells the JavaMailSender to use the credentials provided
+          # (spring.mail.username and spring.mail.password) to authenticate with the SMTP server.
+          # -----/
+          auth: true
+          ##### /-----
+          # Purpose: This property enables STARTTLS for secure communication.
+          # Usage: STARTTLS is a protocol command used to upgrade an existing insecure connection to a secure one.
+          # Setting this property to true tells the JavaMailSender to use STARTTLS if the SMTP server supports it,
+          # ensuring that the communication between your application and the SMTP server is encrypted.
+          # -----/
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+##### /----- SENDER EMAIL -----/
+email:
+  sender: ${SPRING_SENDER_EMAIL}

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  your-product-api:
+    build:
+      dockerfile: Dockerfile.dev
+    env_file:
+      - .env.dev
+    depends_on:
+      mail-dev:
+        condition: service_started  # Ensures mail-dev starts before this service
+
+  your-product-db:
+    env_file:
+      - .env.dev
+
+  mail-dev:
+    container_name: your-product-mail-dev
+    image: maildev/maildev
+    restart: always
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - your-product-network
+
+

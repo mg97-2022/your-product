@@ -13,3 +13,8 @@
 1) INTEGRATION TEST
 2) RUN DEVELOPMENT FROM DOCKER
 3) LOGGING HAS ERROR
+
+// CI/CD pipeline
+1) Check why tests not working
+2) use mail dev in docker compose
+3)

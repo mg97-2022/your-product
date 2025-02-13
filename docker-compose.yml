@@ -1,49 +1,38 @@
 version: "3"
 services:
-  your-product:
-    container_name: "your-product"
+  your-product-api:
+    container_name: your-product-api
     build:
       context: .
-      dockerfile: Dockerfile
-#      args:
-#        - PROFILE=dev
     ports:
       - "8080:8080"
-    environment:
-      ##### DB Environments
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/social_media
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 136910@Mg
-      ##### Dockerfile Environments
-      SPRING_PROFILES_ACTIVE: dev
     depends_on:
-      postgres:
-        # Ensures the postgres service passes its health check before starting your-product.
-        condition: service_healthy
+      your-product-db:
+        condition: service_healthy  # Ensures PostgreSQL passes health check
+    networks:
+      - your-product-network
 
-  postgres:
+  your-product-db:
     image: postgres
-    container_name: postgres-container
-    # Ensures the container restarts automatically if it crashes.
-    restart: always
+    container_name: your-product-db
+    restart: always # Ensures the container restarts automatically if it crashes.
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 136910@Mg
-      POSTGRES_DB: social_media
     ports:
       - "5432:5432"
-    # Defines a health check to ensure PostgreSQL is ready
-    healthcheck:
-      # Runs the pg_isready command to check if PostgreSQL is accepting connections.
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      # Runs the test every 10 seconds.
-      interval: 10s
-      # Each test times out after 5 seconds if no response is received.
-      timeout: 5s
-      # The container is marked unhealthy after 5 failed attempts.
-      retries: 5
+    healthcheck: # Defines a health check to ensure PostgreSQL is ready
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB" ] # Runs the pg_isready command to check if PostgreSQL is accepting connections.
+      interval: 10s # Runs the test every 10 seconds.
+      timeout: 5s # Each test times out after 5 seconds if no response is received.
+      retries: 5 # The container is marked unhealthy after 5 failed attempts.
+    networks:
+      - your-product-network
+
 
 volumes:
   postgres_data:
+
+
+networks:
+  your-product-network:
+    driver: bridge

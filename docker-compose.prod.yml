@@ -1,0 +1,11 @@
+version: "3"
+services:
+  your-product-api:
+    build:
+      dockerfile: Dockerfile.prod
+    env_file:
+      - .env.prod
+
+  your-product-db:
+    env_file:
+      - .env.prod
